@@ -3,10 +3,8 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { Formik, useFormik } from 'formik'
 import * as yup from 'yup'
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@material-ui/core';
-
-
-
-
+import StudentServices from './Services/StudentServices';
+import StudComp from './components/StudComp';
 
 
 const App = () => {
@@ -18,6 +16,11 @@ const App = () => {
       division:'',
       gender:''
     },
+
+
+
+
+    
     validationSchema: yup.object({
       name: yup.string()
         .required("Name is required")
@@ -30,24 +33,33 @@ const App = () => {
       division:yup.string()
         .required("Division is required "),
         gender:yup.string().oneOf(["male","female"],"Required").required("Gender is required ")
-        
-             
-     
-        
-          
+         
         
     }),
+        
+       
+
+
+  
     onSubmit: (userInputData) => {
       console.log(userInputData);
-
+      StudentServices.saveall(userInputData).then(res=>{
+        console.log(res);
+      })
+      window.location.reload(false);
+      
     }
+      
   })
+     
+  
+  
 
   return (
-   
-    
+
     <div className="container " >
-    
+    <div className="row">
+      <div className="col-sm-6">
       <h1>STUDENT DATA</h1> 
       <form autoComplete="off" onSubmit={formik.handleSubmit} >
 
@@ -155,12 +167,25 @@ const App = () => {
         <br/><br/> 
         <button className="btn btn-primary">Submit</button>
       </form>
+      <div>
       </div>
+
+      </div>
+      <div className="col-sm-6">
+        <StudComp/>
+      </div>
+      </div>
+      </div>
+      
   
       
     
   )
 }
+
+
+
+
 
 
 
