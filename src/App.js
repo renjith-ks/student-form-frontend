@@ -165,7 +165,7 @@ const App = () => {
             : null
           }
         <br/><br/> 
-        <button className="btn btn-primary">Submit</button>
+        <button type="submit" value="Submit">Submit</button>
       </form>
       <div>
       </div>
